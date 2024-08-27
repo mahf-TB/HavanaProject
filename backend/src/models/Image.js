@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
       },
-    });
+    }
+  );
 
     Image.associate = (models) => {
         Image.belongsTo(models.Article, { foreignKey: 'article_id' });

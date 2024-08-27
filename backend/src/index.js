@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// router
+// router 
 app.use('/auth', routerAuth);
 app.use('/user', routerUser); 
 app.use('/article', routerArticle);

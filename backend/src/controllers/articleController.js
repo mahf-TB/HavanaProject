@@ -2,17 +2,11 @@ const db = require("../models");
 const Article = db.Article;
 const Fourni = db.Fournisseur;
 const Categorie = db.Categorie;
+const Image = db.Image;
 
 const ajouterProduit = async (req, res) => {
-  const {
-    reference,
-    nom_article,
-    description,
-    categorie_id,
-    fournisseur_id,
-  } = req.body;
-
-  console.log(req.body.noms);
+  const { reference, nom_article, description, categorie_id, fournisseur_id } = req.body;
+  const imagePath = req.file ? req.file.path : null;
   try {
     const articles = await Article.create({
       reference,
@@ -21,25 +15,33 @@ const ajouterProduit = async (req, res) => {
       categorie_id,
       fournisseur_id,
     });
-    res.status(201).send(articles);
+    if (articles) {
+      if (imagePath) {
+        const imageUpload = await Image.create({
+          path: imagePath,
+          article_id: articles.id,
+        });
+        if (!imageUpload) {
+          return res.status(500).json({ error: "Failed to create image" });
+        }
+      }
+      res.status(201).send(articles);
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
-const get_allArticles = async (req, res)=>{
+const get_allArticles = async (req, res) => {
   try {
     const data = await Article.findAll({
-      include: [
-        { model: Fourni },
-        { model: Categorie },
-      ]
+      include: [{ model: Fourni }, { model: Categorie }, { model: Image }],
     });
     res.status(200).send(data);
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 module.exports = {
   ajouterProduit,

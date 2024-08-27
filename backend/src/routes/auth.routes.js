@@ -3,9 +3,9 @@ const verifyToken = require('../middleware/authMiddleware');
 
 const router = require('express').Router()
 
-
 //Route pour obtenir les informations de l'utilisateur authentifié
 router.get('/user', verifyToken, authController.user_Auth);
+
 
 
 //Route pour enregistrer un utilisateur

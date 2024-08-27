@@ -43,6 +43,7 @@ const loginUser = async (req, res) => {
         ],
       },
     });
+
     if (!user_auth) {
       return res.status(404).send({ message: "Utilisateur non trouvé." });
     }

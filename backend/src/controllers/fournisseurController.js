@@ -3,8 +3,10 @@ const Fournisseur = db.Fournisseur;
 const article = db.Article;
 const ajouterFournisseur = async (req, res) => {
   const { noms_fournisseur, adresse, telephone, email } = req.body;
-
   try {
+    if (!noms_fournisseur || !adresse || !telephone ) {
+      return res.status(201).send({ message:"Remplire tout les formulaire", status: 401 });     
+    }
     const FournisseurB = await Fournisseur.create({
       noms_fournisseur,
       adresse,
@@ -26,14 +28,12 @@ const show_FournisseurArticles = async (req, res) => {
     if (data) {
       res.status(200).send(data);
     } else {
-      res.status(404).send({ message: 'Article non trouvé' });
+      res.status(404).send({ message: "Article non trouvé" });
     }
-
   } catch (error) {
     console.log(error);
   }
 };
-
 
 const get_fournisseur = async (req, res) => {
   try {
@@ -41,7 +41,7 @@ const get_fournisseur = async (req, res) => {
     if (data) {
       res.status(200).send(data);
     } else {
-      res.status(404).send({ message: 'Article non trouvé' });
+      res.status(404).send({ message: "Article non trouvé" });
     }
   } catch (error) {
     console.log(error);

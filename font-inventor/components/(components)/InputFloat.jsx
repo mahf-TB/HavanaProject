@@ -1,21 +1,20 @@
 import React from "react";
 
-export default function InputFloat() {
+export default function InputFloat({ title, id, onChange,required }) {
   return (
-    <div class="relative">
+    <div className="relative my-3">
       <input
-        autocomplete="on"
-        id="email"
-        name="email"
         type="text"
-        class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-        placeholder="Email address"
+        id={id}
+        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        placeholder=" "
+        onChange={onChange}
       />
       <label
-        for="email"
-        class="absolute left-0 -top-3.5 text-gray-500 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+        htmlFor={id}
+        className="absolute text-sm text-gray-500  duration-300 transform-translate-y-4 scale-75 -top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
       >
-        Nom d'utilisateur ou Email
+        {title}<span className="text-red-500">{required?'*':''}</span>
       </label>
     </div>
   );

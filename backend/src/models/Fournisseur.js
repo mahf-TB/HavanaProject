@@ -4,9 +4,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    imasgePath: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     adresse: {
       type: DataTypes.STRING, 
-      allowNull: true,
+      allowNull: false,
     },
     telephone: {
       type: DataTypes.STRING,
@@ -15,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,

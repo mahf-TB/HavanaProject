@@ -12,18 +12,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-
     //   foreign keys #####################################
-    client_id: {
+    fournisseur_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
 
     //   foreign keys #####################################
-    payer_id: {
+    facture_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
-    },
+    },     
     
     //   foreign keys #####################################
     id_user: {
@@ -41,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Commande.associate = (models) => {
-    Commande.belongsTo(models.Paiement, { foreignKey: "payer_id" });
-    Commande.belongsTo(models.Client, { foreignKey: "client_id" });
+    Commande.belongsTo(models.Facture, { foreignKey: "facture_id" });
+    Commande.belongsTo(models.Fournisseur, { foreignKey: "fournisseur_id" });
     Commande.belongsTo(models.User, { foreignKey: "id_user" });
 
     Commande.hasMany(models.Ligne_commande, { foreignKey: "commande_id" });

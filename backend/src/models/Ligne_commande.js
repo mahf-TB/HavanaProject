@@ -33,8 +33,6 @@ module.exports = (sequelize, DataTypes) => {
         Ligne_commande.belongsTo(models.Article, { foreignKey: 'article_id' });
         Ligne_commande.belongsTo(models.Commande, { foreignKey: 'commande_id' });
   
-        // Article.hasMany(models.Image, { foreignKey: 'article_id' });
-  
     };
   
     return Ligne_commande;

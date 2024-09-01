@@ -1,41 +1,63 @@
-import { Bell, ChevronDown, History, Settings, Users } from "lucide-react";
+"use client";
+import {
+  Apple,
+  ChartBarStacked,
+  CircleDollarSign,
+  Hammer,
+  LogOut,
+  ShoppingCart,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-import SearchInput from "../(components)/SearchInput";
-import Image from "next/image";
+
+import ToolTip from "../(components)/ToolTip";
+import Cookies from "js-cookie";
 
 export default function HeaderUser() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const Logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("role");
+    router.push("/login");
+  };
+  const navLinks = [
+    { title: "Dashboard", href: "/user/home", Icon: ChartBarStacked },
+    { title: "Products", href: "/user/products", Icon: Hammer },
+    { title: "Sales", href: "/user/sales", Icon: ShoppingCart },
+    { title: "Clients", href: "/user/clients", Icon: Users },
+    { title: "Caisse", href: "/user/cash", Icon: CircleDollarSign },
+  ];
   return (
-    <div className="text-[13px] bg-slate-100 h-14 flex items-center justify-between px-8 border-b border-slate-200 shadow-md">
-      <div className="flex gap-3">
-        <button>
-          <History className="w-5 h-5" />
+    <div className="h-10 bg-white flex items-center justify-around border-b border-slate-200">
+      <nav className="sticky mt-1 flex space-x-5 text-[13px]">
+        {navLinks.map((item, i) => {
+          const { Icon, href, title } = item;
+          return (
+            <div
+              key={i}
+              className={`flex items-center gap-2 uppercase ${
+                pathname === item.href
+                  ? "py-1 border-b-[4px] text-blue-600  border-blue-600  "
+                  : "py-1 text-slate-600 hover:text-slate-800 px-2  rounded-lg hover:bg-slate-200 "
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              <Link href={item.href}>{item.title}</Link>
+            </div>
+          );
+        })}
+      </nav>
+      <ToolTip tooltip={"Se déconnecter"} >
+        <button
+          onClick={Logout}
+          className="p-2  rounded-lg hover:text-slate-800 hover:bg-slate-200 transition-all duration-300"
+        >
+          <LogOut className="w-5 h-5" />
         </button>
-        <SearchInput />
-      </div>
-      <div>
-        {/* icon */}
-        <div className="flex">
-          {/* <!-- Show tooltip on bottom --> */}
-          <div className="flex border-x border-gray-400 items-center gap-3 px-2">
-            <button type="button" class="p-2 rounded-lg hover:bg-slate-200">
-              <Users className="text-slate-800 w-4 h-4" />
-            </button>
-            <button type="button" class="p-2 rounded-lg hover:bg-slate-200">
-              <Bell className="text-slate-800 w-4 h-4" />
-            </button>
-            <button type="button" class="p-2 rounded-lg hover:bg-slate-200">
-              <Settings className="text-slate-800 w-4 h-4" />
-            </button>
-          </div>
-          <div className="flex px-3">
-            <button type="button" class="flex items-center p-2 rounded-lg hover:bg-slate-200">
-              <span className="text-xs font-semibold">MAHEFA</span>
-              <ChevronDown className="text-slate-800 w-4 h-4" />
-            </button>
-            <Image src="/images/user.jpg" width={40} height={40} className="w-10 h-10 rounded-full object-cover border border-slate-800 "/>
-          </div>
-        </div>
-      </div>
+      </ToolTip>
     </div>
   );
 }

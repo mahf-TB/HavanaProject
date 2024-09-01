@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     <div className="flex">
       <SideBar />
       <main className="w-full bg-slate-100 min-h-screen">
-        <Header />
+        <Header bgColor="bg-slate-50"/>
         {children}
       </main>
     </div>

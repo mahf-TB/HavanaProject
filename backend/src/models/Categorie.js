@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: 'Categorie' // Spécifiez explicitement le nom de la table
+      tableName: 'Categories' // Spécifiez explicitement le nom de la table
     });
 
     Categorie.associate = (models) => {
